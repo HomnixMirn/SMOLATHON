@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header/page"
+import Notifications from "@/components/notification/page";
+import { GEOProvider } from "@/hooks/geo-context";
+import { UserProvider } from "@/hooks/user-context";
+import { NotificationManagerProvider } from "@/hooks/notification-context";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,8 +31,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        {children}
+        <GEOProvider>
+          <UserProvider>
+            <NotificationManagerProvider>
+                <Header />
+                <Notifications />
+                {children}
+            </NotificationManagerProvider>
+        </UserProvider>
+        </GEOProvider>
       </body>
     </html>
   );
