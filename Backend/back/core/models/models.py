@@ -11,3 +11,4 @@ class authorizedToken(Token):
     
     def token(self):
         return self.key
+    
