@@ -21,7 +21,6 @@ export default function RootLayout({
       const token = localStorage.getItem("token");
       const username = user?.username;
 
-      // Проверка доступа
       if (!token || username !== "admin") {
         setIsAllowed(false);
         router.replace("/not-found");
@@ -31,7 +30,6 @@ export default function RootLayout({
     }
   }, [user, isLoading, isClient, router]);
 
-  // Показываем загрузку, пока идёт проверка
   if (!isClient || isLoading || isAllowed === null) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -40,12 +38,10 @@ export default function RootLayout({
     );
   }
 
-  // Если доступ запрещён — вообще ничего не рендерим
   if (isAllowed === false) {
     return null;
   }
 
-  // ✅ Контент рендерится только если всё проверено и разрешено
   return (
     <div className="flex min-h-screen">
       <main
