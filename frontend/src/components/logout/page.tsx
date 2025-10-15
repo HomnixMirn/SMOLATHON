@@ -23,7 +23,6 @@ export default function Logout() {
         return
       }
 
-      // Отправляем запрос на логаут
       const res = await axi.get("/account/logout", {
         headers: {
           "Authorization": `Bearer ${token}`
@@ -31,10 +30,7 @@ export default function Logout() {
       })
 
       if (res.status === 200) {
-        // Удаляем токен из localStorage
         localStorage.removeItem("token")
-        
-        // Очищаем данные пользователя в контексте
         clearUser?.()
 
         addNotification({
@@ -44,12 +40,10 @@ export default function Logout() {
           status: 200,
           createdAt: new Date().toISOString(),
         })
-
-        // Обновляем страницу
+        
         window.location.reload()
       }
     } catch (err) {
-      // Даже если запрос не удался, очищаем локальные данные
       localStorage.removeItem("token")
       clearUser?.()
 
@@ -61,7 +55,6 @@ export default function Logout() {
         createdAt: new Date().toISOString(),
       })
 
-      // Обновляем страницу
       window.location.reload()
     }
   }
